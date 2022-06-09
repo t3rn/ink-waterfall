@@ -620,8 +620,8 @@ impl ContractsUi for crate::uis::Ui {
             ))
             .await?
             .len();
-        assert!(
-            expanded_views == 1,
+        assert_eq!(
+            expanded_views, 1,
             "found too many expanded views ({})!",
             expanded_views
         );
@@ -938,8 +938,8 @@ impl ContractsUi for crate::uis::Ui {
             ))
             .await?
             .len();
-        assert!(
-            expanded_views == 1,
+        assert_eq!(
+            expanded_views, 1,
             "found too many expanded views ({})!",
             expanded_views
         );
