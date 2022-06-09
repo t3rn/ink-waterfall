@@ -1331,6 +1331,7 @@ impl ContractsUi for crate::uis::Ui {
         }
     }
 
+    #[cfg(feature = "polkadot-js-ui")]
     /// Updates the metadata which the UI uses for interacting with the contract
     /// at `contract_addr` to `new_abi`.
     async fn update_metadata(

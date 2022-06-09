@@ -28,6 +28,7 @@ use crate::{
 };
 use lang_macro::waterfall_test;
 
+#[cfg(feature = "polkadot-js-ui")]
 #[waterfall_test(example = "delegate-calls")]
 async fn delegate_call_works(mut ui: Ui) -> Result<()> {
     // given

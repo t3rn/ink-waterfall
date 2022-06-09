@@ -82,6 +82,7 @@ pub trait ContractsUi {
         call: Call,
     ) -> self::TransactionResult<Events>;
 
+    #[cfg(feature = "polkadot-js-ui")]
     /// Updates the metadata
     async fn update_metadata(
         &mut self,
