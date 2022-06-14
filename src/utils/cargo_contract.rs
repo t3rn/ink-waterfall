@@ -76,6 +76,22 @@ pub(crate) fn build(manifest_path: &PathBuf) -> Result<PathBuf, String> {
     let mut dir = manifest_path.clone();
     dir.pop(); // pop `Cargo.toml` from the path
 
+    std::env::remove_var("RUST_TOOLCHAIN");
+
+    let output = Command::new("rustup")
+        .arg("show")
+        .current_dir(dir.clone())
+        // we want to receive the child's output as part of the ink-waterfall stdout
+        .stdout(std::process::Stdio::piped())
+        .spawn()
+        .expect("failed to execute process")
+        .wait_with_output()
+        .expect("failed to receive output");
+    println!(
+        "Rustup toolchain {}",
+        String::from_utf8(output.stdout).expect("string conversion failed")
+    );
+
     let output = Command::new("cargo")
         .arg("+nightly")
         .arg("contract")

@@ -32,8 +32,8 @@ pub fn test_name() -> String {
 /// This method will first try to look the example up in `INK_EXAMPLES_PATH`.
 /// If not found there, it will fall back to `./examples/` ++ `example`.
 pub fn example_path(example: &str) -> PathBuf {
-    let examples_path = std::env::var("INK_EXAMPLES_PATH")
-        .expect("env variable `INK_EXAMPLES_PATH` must be set");
+    let examples_path =
+        std::env::var("INK_EXAMPLES_PATH").unwrap_or("./examples".to_string());
     let mut path = PathBuf::from(examples_path).join(example);
 
     // Check if path exists, if not assume it's a local example to `ink-waterfall`.
@@ -88,7 +88,7 @@ pub fn node_log_contains(msg: &str) -> bool {
     let output = Command::new("grep")
         .arg("-q")
         .arg(msg)
-        .arg("/tmp/substrate-contracts-node.log")
+        .arg("/tmp/circuit-node.log")
         .spawn()
         .map_err(|err| format!("ERROR while executing `grep` with {:?}: {:?}", msg, err))
         .expect("failed to execute process")
